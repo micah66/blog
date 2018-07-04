@@ -1,0 +1,28 @@
+<nav class="navbar bg-light">
+  <%= link_to 'Home', root_path %>
+  <% if admin_signed_in? %>
+  <%= link_to 'New car', new_car_path %>
+  <%= link_to 'Logout', destroy_admin_session_path, method: :delete %>
+  <% elsif user_signed_in? %>
+  <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+  <% end %>
+</nav>
+<h1>Listing cars</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Creation Date</th>
+    <th>Username</th>
+    <th></th>
+  </tr>
+
+  <% @cars.each do |car| %>
+  <tr>
+    <td><%= car.title %></td>
+    <td><%= car.created_at.strftime('%B, %d, %Y') %></td>
+    <td><%= car.admin.username %></td>
+    <td><%= link_to 'Show', car_path(car) %></td>
+  </tr>
+  <% end %>
+</table>
